@@ -4,16 +4,17 @@ from fastapi.testclient import TestClient
 from main import app
 
 # test Fast API root
-def test_api_locally_get_root():
-    """ Test Fast API root route"""
+def test_get_root():
+    """Test Fast API root route"""
 
     with TestClient(app) as client:
         r = client.get("/")
     assert r.status_code == 200
-    assert r.json()["greeting"]== "Welcome User!"
-    
-def test_api_locally_get_predictions_inf1():
-    """ Test Fast API predict route with a '<=50K' salary prediction result """
+    assert r.json()["greeting"] == "Welcome User!"
+
+
+def test_get_predictions_inf1():
+    """Test Fast API predict route with a '<=50K' salary prediction result"""
 
     expected_res = "Predicts ['<=50K']"
     test_data = {
@@ -38,9 +39,10 @@ def test_api_locally_get_predictions_inf1():
         r = client.post("/predict", data=json.dumps(test_data), headers=headers)
         assert r.status_code == 200
         assert (r.json()["fetch"][: len(expected_res)]) == expected_res
-        
-def test_api_locally_get_predictions_inf2():
-    """ Test Fast API predict route with a '>50K' salary prediction result """
+
+
+def test_get_predictions_inf2():
+    """Test Fast API predict route with a '>50K' salary prediction result"""
 
     expected_res = "Predicts ['>50K']"
     test_data = {

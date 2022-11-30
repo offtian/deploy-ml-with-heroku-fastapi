@@ -3,17 +3,20 @@ import pandas as pd
 import numpy as np
 from sklearn.preprocessing import LabelBinarizer, OneHotEncoder
 
+
 def load_data(root_path, file_name):
     df = pd.read_csv(os.path.join(root_path, "data", file_name))
     return df
 
+
 def save_data(df, root_path, file_name):
     df.to_csv(os.path.join(root_path, "data", file_name), index=False)
+
 
 def process_data(
     X, categorical_features=[], label=None, training=True, encoder=None, lb=None
 ):
-    """ Process the data used in the machine learning pipeline.
+    """Process the data used in the machine learning pipeline.
 
     Processes the data using one hot encoding for the categorical features and a
     label binarizer for the labels. This can be used in either training or

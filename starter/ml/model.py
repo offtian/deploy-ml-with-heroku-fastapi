@@ -14,6 +14,7 @@ def save_model(model, file):
     with open(file, "wb") as f:
         pickle.dump(model, f)
 
+
 # load the model
 def load_model(file):
     """
@@ -26,6 +27,7 @@ def load_model(file):
     with open(file, "rb") as f:
         model = pickle.load(f)
     return model
+
 
 # Optional: implement hyperparameter tuning.
 def train_model(X_train, y_train):
@@ -46,10 +48,10 @@ def train_model(X_train, y_train):
     clf = RandomForestClassifier(
         n_estimators=150,
         n_jobs=-1,
-        max_depth=25, 
+        max_depth=25,
         min_samples_split=60,
-        max_features=30, 
-        random_state=42
+        max_features=30,
+        random_state=42,
     )
     clf.fit(X_train, y_train)
     return clf
@@ -78,7 +80,7 @@ def compute_model_metrics(y, preds):
 
 
 def inference(model, X):
-    """ Run model inferences and return the predictions.
+    """Run model inferences and return the predictions.
 
     Inputs
     ------
@@ -95,7 +97,7 @@ def inference(model, X):
 
 
 def compute_slice_metric(model, cat_feat, cat_features, encoder, lb, X):
-    """ Output the performance of the model on slices of the data
+    """Output the performance of the model on slices of the data
     Inputs
     ------
     model : ???
@@ -120,12 +122,12 @@ def compute_slice_metric(model, cat_feat, cat_features, encoder, lb, X):
     for feat in X[cat_feat].unique():
         sample_data = X[X[cat_feat] == feat]
         sample_X_test, sample_y_test, _, _ = process_data(
-            sample_data, 
-            categorical_features=cat_features, 
-            label="salary", 
-            training=False, 
-            encoder=encoder, 
-            lb=lb
+            sample_data,
+            categorical_features=cat_features,
+            label="salary",
+            training=False,
+            encoder=encoder,
+            lb=lb,
         )
         sample_y_pred = inference(model, sample_X_test)
         _, _, f1 = compute_model_metrics(sample_y_test, sample_y_pred)

@@ -71,7 +71,7 @@ async def root(user: str = "User"):
     return {"greeting": f"Welcome {user}!"}
 
 @app.post("/predict")
-async def inference_adult(payload: census_data):
+async def get_prediction(payload: census_data):
     
     # Convert input data into a dictionary and then pandas dataframe
     df = pd.DataFrame.from_dict([payload.dict(by_alias=True)])
@@ -91,17 +91,14 @@ async def inference_adult(payload: census_data):
     input, _, _, _ = process_data(
             df, categorical_features=cat_features, training=False, encoder=encoder, lb=lb
             )
+    
     # Model inference
     y_pred = inference(clf, input)
-    
-    if not y_pred:
-        raise HTTPException(status_code=400, detail="Model not found.")
+    label = y_pred.item()
+
+    if label==0:
+        output = "<=50K"
     else:
-        label = y_pred.item()
+        output = ">50K" 
 
-        if label==0:
-            output = "<=50K"
-        else:
-            output = ">50K" 
-
-    return {"fetch": f"The estimated salary is {output}"}
+    return {"fetch": f"Predicts ['{output}']"}

@@ -1,12 +1,9 @@
 import pandas as pd
 import numpy as np
-import pickle
 import pytest
 
 import os
 from pathlib import Path
-
-from ml.data import process_data
 
 @pytest.fixture
 def data():

@@ -116,3 +116,4 @@ random_forest_dir/
 multirun/
 
 /model
+/data

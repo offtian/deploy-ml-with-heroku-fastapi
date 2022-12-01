@@ -9,7 +9,7 @@ import json
 import requests
 
 # Declare predict uri and sample dictionary
-PREDICT_URI = "https://git.heroku.com/udacity-offtian.git/predict/"
+PREDICT_URI = "https://deploy-ml-with-heroku-offtian.herokuapp.com/predict/"
 
 sample = {
     "age": 39,

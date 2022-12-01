@@ -1,4 +1,5 @@
 [core]
     remote = myremote
+    no_scm = true
 ['remote "myremote"']
     url = s3://udacity-ml-projects-offtian/fastapi/
